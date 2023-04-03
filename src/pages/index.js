@@ -1,6 +1,5 @@
-import React, { useState } from "react"
+import React from "react"
 import { graphql } from "gatsby"
-import { GatsbyImage } from "gatsby-plugin-image"
 import Client from "shopify-buy"
 
 import Layout from "../components/layout"
