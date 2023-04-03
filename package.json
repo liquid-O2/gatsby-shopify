@@ -8,11 +8,16 @@
     "gatsby": "^5.8.1",
     "gatsby-plugin-image": "^3.8.0",
     "gatsby-plugin-manifest": "^5.8.0",
+    "gatsby-plugin-sass": "^6.8.0",
     "gatsby-plugin-sharp": "^5.8.1",
     "gatsby-source-filesystem": "^5.8.0",
+    "gatsby-source-shopify": "^8.8.2",
     "gatsby-transformer-sharp": "^5.8.0",
+    "isomorphic-fetch": "^3.0.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "sass": "^1.60.0",
+    "shopify-buy": "^2.18.0"
   },
   "devDependencies": {
     "prettier": "^2.8.7"
