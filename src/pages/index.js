@@ -10,7 +10,6 @@ import fetch from "isomorphic-fetch"
 const IndexPage = ({ data }) => {
   const products = data.products.edges
   let checkoutUrl = ""
-  const button = document.querySelector(".product-card-button")
   const client = Client.buildClient(
     {
       domain: process.env.GATSBY_SHOPIFY_STORE_URL,
@@ -31,7 +30,6 @@ const IndexPage = ({ data }) => {
 
         client.checkout.addLineItems(checkout.id, lineItemsToAdd).then(checkout => {
           checkoutUrl = checkout.webUrl
-          button.textContent = "Loading...."
           window.location.href = checkoutUrl
         })
       })
