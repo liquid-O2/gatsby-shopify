@@ -50,12 +50,6 @@ const IndexPage = ({ data }) => {
               <span>{product.node.title}</span> <span>{`$${product.node.priceRangeV2.maxVariantPrice.amount} AUD`}</span>
             </p>
             <p className='product-card-description'>{product.node.description}</p>
-            <div className='variant-pill-wrapper'>
-              {product.node.variants.map(variant => (
-                <p className='variant-pill'>{variant.title}</p>
-              ))}
-            </div>
-
             <button onClick={() => handleCheckout(product.node.shopifyId)} className='product-card-button'>
               BUY NOW
             </button>
@@ -90,11 +84,6 @@ export const query = graphql`
           }
           description
           status
-          variants {
-            availableForSale
-            price
-            title
-          }
         }
       }
     }
