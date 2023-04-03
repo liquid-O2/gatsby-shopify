@@ -61,7 +61,7 @@ main {
   border: none;
   cursor: pointer;
   transition: opacity 0.5s ease;
-  &:hover{
+  &:hover {
     opacity: 0.6;
   }
 }
@@ -83,4 +83,13 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+  background-color: #0a0a0a;
+  color: #f8f8f8;
+}
+
+.variant-pill.active {
+  background-color: #f8f8f8;
+  color: #0a0a0a;
+  border: none;
 }

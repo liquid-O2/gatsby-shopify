@@ -1,4 +1,4 @@
-import * as React from "react"
+import React, { useState } from "react"
 import { graphql } from "gatsby"
 import { GatsbyImage } from "gatsby-plugin-image"
 import Client from "shopify-buy"
@@ -6,10 +6,11 @@ import Client from "shopify-buy"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import fetch from "isomorphic-fetch"
+import Product from "../components/product"
 
 const IndexPage = ({ data }) => {
   const products = data.products.edges
-  let checkoutUrl = ""
+
   const client = Client.buildClient(
     {
       domain: process.env.GATSBY_SHOPIFY_STORE_URL,
@@ -18,18 +19,17 @@ const IndexPage = ({ data }) => {
     fetch
   )
 
-  function handleCheckout(shopifyId) {
+  function handleCheckout(shopifyId, variantId) {
     client.product.fetch(shopifyId).then(product => {
       client.checkout.create().then(checkout => {
         const lineItemsToAdd = [
           {
-            variantId: product.variants[0].id,
+            variantId: variantId,
             quantity: 1,
           },
         ]
-
         client.checkout.addLineItems(checkout.id, lineItemsToAdd).then(checkout => {
-          checkoutUrl = checkout.webUrl
+          const checkoutUrl = checkout.webUrl
           window.location.href = checkoutUrl
         })
       })
@@ -39,20 +39,7 @@ const IndexPage = ({ data }) => {
   return (
     <Layout>
       {products.map(product => (
-        <div className='product-card'>
-          <figure className='product-card-image-wrapper'>
-            <GatsbyImage image={product.node.featuredImage.gatsbyImageData} alt={product.node.title} className='product-card-image' />
-          </figure>
-          <article>
-            <p className='product-card-header'>
-              <span>{product.node.title}</span> <span>{`$${product.node.priceRangeV2.maxVariantPrice.amount} AUD`}</span>
-            </p>
-            <p className='product-card-description'>{product.node.description}</p>
-            <button onClick={() => handleCheckout(product.node.shopifyId)} className='product-card-button'>
-              BUY NOW
-            </button>
-          </article>
-        </div>
+        <Product key={product.node.shopifyId} product={product} handleCheckout={handleCheckout} />
       ))}
     </Layout>
   )
@@ -82,6 +69,13 @@ export const query = graphql`
           }
           description
           status
+          variants {
+            availableForSale
+            price
+            title
+            id
+            shopifyId
+          }
         }
       }
     }
